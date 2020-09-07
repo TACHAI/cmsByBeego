@@ -12,7 +12,7 @@ type Page struct {
 }
 
 func init()  {
-	orm.RegisterDataBase("default","mysql","root@hzc778209@tcp(127.0.0.1:3306)")
+	orm.RegisterDataBase("default","mysql","root:hzc778209@tcp(127.0.0.1:3306)/test?charset=utf8")
 	orm.RegisterModel(new(Page))
 }
 
