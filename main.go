@@ -2,6 +2,7 @@ package main
 
 import (
 	_ "cmsByBeego/routers"
+	_ "cmsByBeego/sysinit"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/logs"
