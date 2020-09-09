@@ -10,18 +10,30 @@ type MenuController struct {
 	beego.Controller
 }
 
+type MenuEx struct {
+	models.MenuModel
+	ParentName string
+}
+
+type JSONS struct {
+	Code  int
+	Msg   string
+	Total int64
+	Data  []MenuEx
+
+}
+
+
 func(c *MenuController)Index(){
 	c.LayoutSections=make(map[string]string)
 	c.LayoutSections["footerjs"]="menu/footerjs.html"
-	c.setTpl("menu/index.html","")
+	c.TplName="menu/index.html"
+	//c.setTpl("menu/index.html","")
 }
 
 func (c *MenuController)List()  {
 	data,total:=models.MenuList()
-	type MenuEx string{
-		models.MenuModel
-		ParentName string
-	}
+
 	var menu =make(map[int]string)
 	for _,v:=range data{
 		menu[v.Mid]=v.Name
@@ -30,7 +42,10 @@ func (c *MenuController)List()  {
 	for _,v:=range data{
 		dataEx=append(dataEx,MenuEx{*v,menu[v.Parent]})
 	}
-	c.listJsonResult(consts.JRCodeSucc,"ok",total,dataEx)
+	//c.listJsonResult(consts.JRCodeSucc,"ok",total,dataEx)
+	res :=&JSONS{200,"OK",total,dataEx}
+	c.Data["json"]=res
+	c.ServeJSON()
 }
 
 func (c *MenuController)Add()  {
@@ -58,7 +73,8 @@ func (c *MenuController)Edit()  {
 	c.Data["PMenus"]=pMenus
 	c.LayoutSections=make(map[string]string)
 	c.LayoutSections["footerjs"]="menu/footerjs_edit.html"
-	c.setTpl("menu/edit.html","common/layout_edit.html")
+	//c.setTpl("menu/edit.html","common/layout_edit.html")
+	c.TplName="menu/edit.html"
 }
 
 func (c *MenuController)EditDo()  {
