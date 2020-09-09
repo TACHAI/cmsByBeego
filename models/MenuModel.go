@@ -1,6 +1,9 @@
 package models
 
-import "github.com/astaxie/beego/orm"
+import (
+	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
+)
 
 type MenuModel struct {
 	Mid int `orm:"pk;auto"`

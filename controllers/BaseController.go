@@ -44,6 +44,8 @@ func (c*BaseController)setTpl(template ...string)  {
 	if !found{
 		c.Data["Footer"]="menu/footerjs.html"
 	}
+	c.LayoutSections["layout"]=layout
+  c.TplName=tplName
 
 
 }

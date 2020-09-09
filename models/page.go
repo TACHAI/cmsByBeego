@@ -3,6 +3,8 @@ package models
 import (
 	"fmt"
 	"github.com/astaxie/beego/orm"
+	_ "github.com/go-sql-driver/mysql"
+
 )
 
 type Page struct {
