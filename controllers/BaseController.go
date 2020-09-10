@@ -18,8 +18,10 @@ func (c *BaseController)Prepare()  {
 	c.controllerName,c.actionName=c.GetControllerAndAction()
 	beego.Informational(c.controllerName,c.actionName)
 	//todo 保存用户数据
+	user:=c.auth()
+
 	fmt.Print("beego:perpare:"+c.controllerName+","+c.actionName)
-	c.Data["Menu"]=models.MenuStruct()
+	c.Data["Menu"]=models.MenuTreeStruct(user)
 }
 
 // 设置模板
@@ -48,4 +50,29 @@ func (c*BaseController)setTpl(template ...string)  {
   c.TplName=tplName
 
 
+}
+
+func (c *BaseController)jsonResult(code consts.JsonResultCode,msg string,obj interface{})  {
+	r:=&models.JsonResult{code,msg,obj}
+	c.Data["json"]=r
+	c.ServeJSON()
+	c.StopRun()
+}
+
+func (c *BaseController)listJsonResult(code consts.JsonResultCode,msg string,count int64)  {
+	r:=&models.ListJsonResult{code,msg,count,obj}
+	c.Data["json"]=r
+	c.ServeJSON()
+	c.StopRun()
+}
+
+func (c *BaseController)auth()models.UserModel  {
+	user:=c.GetSession("xcmsuser")
+	if user==nil{
+		c.Redirect("/login",302)
+		c.StopRun()
+		return models.UserModel{}
+	}else {
+		return user.(models.UserModel)
+	}
 }

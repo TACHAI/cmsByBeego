@@ -1,8 +1,10 @@
 package models
 
 import (
+	"encoding/json"
 	"github.com/astaxie/beego/orm"
 	_ "github.com/go-sql-driver/mysql"
+	"sort"
 )
 
 type MenuModel struct {
@@ -48,10 +50,51 @@ func MenuStruct()map[int]MenuTree  {
 	return menu
 }
 
+func MenuTreeStuct(user UserModel)map[int]MenuTree  {
+	query:=orm.NewOrm().QueryTable(TbNameMenu())
+	data:=make([]*MenuModel,0)
+	query.OrderBy("parent","-seq").Limit(1000).All(&data)
+
+	var menu=make(map[int]MenuTree)
+	//auth
+	if len(user.AuthStr)>0{
+		var authArr []int
+		json.Unmarshal([]byte(user.AuthStr),&authArr)
+		sort.Ints(authArr)
+
+		for _,v:=range data{
+			if 0==v.Parent{
+				idx:=sort.Search(authArr,v.Mid)
+				found:=(idx<len(authArr)&&authArr[idx]==v.Mid)
+				if found{
+					var tree=new(MenuTree)
+					tree.MenuModel=*v
+					menu[v.Mid]=*tree
+				}
+			}else{
+				if tmp,ok:=menu[v.Parent];ok{
+					tmp.Child=append(tmp.Child,*v)
+					menu[v.Parent]=tmp
+				}
+			}
+
+		}
+	}
+}
+
+
 func MenuList()([]*MenuModel,int64)  {
 	query:=orm.NewOrm().QueryTable("xcms_menu")
 	total,_:=query.Count()
 	data:=make([]*MenuModel,0)
 	query.OrderBy("parent","-seq").All(&data)
 	return data,total
+}
+
+func ParentMenuList()[]*MenuModel  {
+	query:=orm.NewOrm().QueryTable("xcms_menu").Filter("parent",0)
+	data:=make([]*MenuModel,0)
+	query.OrderBy("-seq").All(&data)
+
+	return data
 }
