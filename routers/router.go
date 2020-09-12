@@ -25,4 +25,11 @@ func init() {
 	//login
 	beego.Router("/login",&controllers.LoginController{},":Index")
 
+
+    //format
+    beego.Router("/format/edit",&controllers.FormateController{},"Get:Edit")
+    beego.Router("/format/editdo",&controllers.FormateController{},"Get:EditDo")
+
+	beego.Router("data/?:mid",&controllers.DataController{},"Det:Index")
+	beego.Router("data/list/?:mid",&controllers.DataController{},"*:List")
 }

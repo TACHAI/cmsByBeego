@@ -4,6 +4,7 @@ import (
 	"cmsByBeego/models"
 	"fmt"
 	"github.com/astaxie/beego"
+	"go/ast"
 	"strings"
 )
 
@@ -59,7 +60,7 @@ func (c *BaseController)jsonResult(code consts.JsonResultCode,msg string,obj int
 	c.StopRun()
 }
 
-func (c *BaseController)listJsonResult(code consts.JsonResultCode,msg string,count int64)  {
+func (c *BaseController)listJsonResult(code consts.JsonResultCode,msg string,count int64,obj interface{})  {
 	r:=&models.ListJsonResult{code,msg,count,obj}
 	c.Data["json"]=r
 	c.ServeJSON()

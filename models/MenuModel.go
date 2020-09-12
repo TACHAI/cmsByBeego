@@ -3,6 +3,7 @@ package models
 import (
 	"encoding/json"
 	"github.com/astaxie/beego/orm"
+	"github.com/bitly/go-simplejson"
 	_ "github.com/go-sql-driver/mysql"
 	"sort"
 )
@@ -97,4 +98,16 @@ func ParentMenuList()[]*MenuModel  {
 	query.OrderBy("-seq").All(&data)
 
 	return data
+}
+
+func MenuFormatStruct(mid int)*simplejson.Json  {
+	menu:=MenuModel{Mid:mid}
+	err:=orm.NewOrm().Read(&menu)
+	if nil==err{
+		jsonstruct,err2:=simplejson.NewJson([]byte(menu.Format))
+		if(nil==err2){
+			return jsonstruct
+		}
+	}
+	return nil
 }
