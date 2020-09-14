@@ -70,9 +70,9 @@ func (c *UserController)Edit()  {
 
 	authmap :=make(map[int]bool)
 	if len(user.AuthStr)>0{
-		json.Unmarshal([]byte(user.AuthStr),&authobj)
+		json.Unmarshal([]byte(user.AuthStr),&authmap)
 
-		for _,v=range authobj{
+		for v,_:=range authmap{
 			authmap[v]=true
 		}
 
@@ -87,7 +87,7 @@ func (c *UserController)Edit()  {
 	menu :=models.ParentMenuList()
 	menus :=make(map[int]Menuitem)
 	for _,v:=range menu{
-		menu[v,Mid]=Menuitem{v.Name,authmap[v.Mid]}
+		menu[v.Mid]=Menuitem{v.Name,authmap[v.Mid]}
 	}
 	c.Data["Menus"]=menus
 

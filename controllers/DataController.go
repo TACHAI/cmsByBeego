@@ -133,23 +133,23 @@ func (c *DataController)initForm(did int)  {
 	 formarrayObj:=formArray.MustArray()//formArr
 	 if len(formarrayObj)<=0{
 	 	var tmpArray []map[string]string
-	 	tmpArray=append(tmpArray, map[string]string{"key","parent"})
-	 	tmpArray=append(tmpArray, map[string]string{"key","name"})
-	 	tmpArray=append(tmpArray, map[string]string{"key","sql"})
-	 	tmpArray=append(tmpArray, map[string]string{"key","status"})
+	 	tmpArray=append(tmpArray, map[string]string{"key":"parent"})
+	 	tmpArray=append(tmpArray, map[string]string{"key":"name"})
+	 	tmpArray=append(tmpArray, map[string]string{"key":"sql"})
+	 	tmpArray=append(tmpArray, map[string]string{"key":"status"})
 
 	 	for k,_:=range schemaMap.MustMap(){
-	 		tmpArray=append(tmpArray, map[string]string{"key",k})
+	 		tmpArray=append(tmpArray, map[string]string{"key":k})
 		}
 
 	 	tmpArray=append(tmpArray, map[string]string{"type":"submit","title":"提交"})
 	 	c.Data["Form"]=tmpArray
 	 }else {
 	 	var tmpArray []interface{}
-		 tmpArray=append(tmpArray, map[string]string{"key","parent"})
-		 tmpArray=append(tmpArray, map[string]string{"key","name"})
-		 tmpArray=append(tmpArray, map[string]string{"key","sql"})
-		 tmpArray=append(tmpArray, map[string]string{"key","status"})
+		 tmpArray=append(tmpArray, map[string]string{"key":"parent"})
+		 tmpArray=append(tmpArray, map[string]string{"key":"name"})
+		 tmpArray=append(tmpArray, map[string]string{"key":"sql"})
+		 tmpArray=append(tmpArray, map[string]string{"key":"status"})
 
 		 var haveSubmit bool=false
 		 for k,v:=range formArray.MustArray(){

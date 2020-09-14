@@ -11,7 +11,7 @@ type LoginController struct {
 }
 
 func (c *LoginController)Index()  {
-	if c.Ctx.Request.Method="POST"{
+	if c.Ctx.Request.Method=="POST"{
 		userkey:=strings.TrimSpace(c.GetString("username"))
 		password:=strings.TrimSpace(c.GetString("password"))
 

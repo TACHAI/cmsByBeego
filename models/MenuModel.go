@@ -52,7 +52,7 @@ func MenuStruct()map[int]MenuTree  {
 }
 
 func MenuTreeStuct(user UserModel)map[int]MenuTree  {
-	query:=orm.NewOrm().QueryTable(TbNameMenu())
+	query:=orm.NewOrm().QueryTable("xcms_menu")
 	data:=make([]*MenuModel,0)
 	query.OrderBy("parent","-seq").Limit(1000).All(&data)
 

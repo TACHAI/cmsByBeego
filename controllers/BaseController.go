@@ -22,7 +22,7 @@ func (c *BaseController)Prepare()  {
 	user:=c.auth()
 
 	fmt.Print("beego:perpare:"+c.controllerName+","+c.actionName)
-	c.Data["Menu"]=models.MenuTreeStruct(user)
+	c.Data["Menu"]=models.MenuTreeStuct(user)
 }
 
 // 设置模板
@@ -53,14 +53,14 @@ func (c*BaseController)setTpl(template ...string)  {
 
 }
 
-func (c *BaseController)jsonResult(code consts.JsonResultCode,msg string,obj interface{})  {
+func (c *BaseController)jsonResult(code string,msg string,obj interface{})  {
 	r:=&models.JsonResult{code,msg,obj}
 	c.Data["json"]=r
 	c.ServeJSON()
 	c.StopRun()
 }
 
-func (c *BaseController)listJsonResult(code consts.JsonResultCode,msg string,count int64,obj interface{})  {
+func (c *BaseController)listJsonResult(code string,msg string,count int64,obj interface{})  {
 	r:=&models.ListJsonResult{code,msg,count,obj}
 	c.Data["json"]=r
 	c.ServeJSON()
