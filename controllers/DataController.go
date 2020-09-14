@@ -59,7 +59,7 @@ func (c *DataController)List()  {
 		size=20
 	}
 	data,total:=models.DataList(c.Mid,size,page)
-	c.listJsonResult("success","ok",total,data)
+	c.listJsonResult(200,"ok",total,data)
 }
 
 func (c *DataController)Edit()  {
@@ -185,10 +185,10 @@ func (c *DataController)EditDo()  {
 
 				id,err:=orm.NewOrm().Update(&m)
 				if nil==err{
-					c.jsonResult("success","ok",id)
+					c.jsonResult(200,"ok",id)
 				}
 			}
 		}
 	}
-	c.jsonResult("faild","",0)
+	c.jsonResult(400,"",0)
 }

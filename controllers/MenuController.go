@@ -19,7 +19,7 @@ type JSONS struct {
 	Code  int
 	Msg   string
 	Total int64
-	Data  []MenuEx
+	Data  interface{}
 
 }
 

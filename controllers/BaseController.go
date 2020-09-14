@@ -4,7 +4,6 @@ import (
 	"cmsByBeego/models"
 	"fmt"
 	"github.com/astaxie/beego"
-	"go/ast"
 	"strings"
 )
 
@@ -53,15 +52,15 @@ func (c*BaseController)setTpl(template ...string)  {
 
 }
 
-func (c *BaseController)jsonResult(code string,msg string,obj interface{})  {
+func (c *BaseController)jsonResult(code int,msg string,obj interface{})  {
 
-	r:=&JSONS{code,msg,obj}
+	r:=&JSONS{code,msg,nil,obj}
 	c.Data["json"]=r
 	c.ServeJSON()
 	c.StopRun()
 }
 
-func (c *BaseController)listJsonResult(code string,msg string,count int64,obj interface{})  {
+func (c *BaseController)listJsonResult(code int,msg string,count int64,obj interface{})  {
 	r:=&JSONS{code,msg,count,obj}
 	c.Data["json"]=r
 	c.ServeJSON()

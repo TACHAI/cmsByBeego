@@ -40,7 +40,7 @@ func (c *UserController)List()  {
 		size=20
 	}
 	result,count :=models.UserList(size,page)
-	data,total:=models.UserList()
+	data,total:=models.UserList(size,page)
 
 
 
@@ -87,7 +87,7 @@ func (c *UserController)Edit()  {
 	menu :=models.ParentMenuList()
 	menus :=make(map[int]Menuitem)
 	for _,v:=range menu{
-		menu[v.Mid]=Menuitem{v.Name,authmap[v.Mid]}
+		menu[v.Mid]=Menuitem{v.Name:authmap[v.Mid]}
 	}
 	c.Data["Menus"]=menus
 

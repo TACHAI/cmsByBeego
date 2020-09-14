@@ -81,6 +81,7 @@ func MenuTreeStuct(user UserModel)map[int]MenuTree  {
 
 		}
 	}
+	return menu
 }
 
 
