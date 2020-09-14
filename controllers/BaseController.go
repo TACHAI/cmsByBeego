@@ -54,14 +54,15 @@ func (c*BaseController)setTpl(template ...string)  {
 }
 
 func (c *BaseController)jsonResult(code string,msg string,obj interface{})  {
-	r:=&models.JsonResult{code,msg,obj}
+
+	r:=&JSONS{code,msg,obj}
 	c.Data["json"]=r
 	c.ServeJSON()
 	c.StopRun()
 }
 
 func (c *BaseController)listJsonResult(code string,msg string,count int64,obj interface{})  {
-	r:=&models.ListJsonResult{code,msg,count,obj}
+	r:=&JSONS{code,msg,count,obj}
 	c.Data["json"]=r
 	c.ServeJSON()
 	c.StopRun()

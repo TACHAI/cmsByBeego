@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"cmsByBeego/models"
+	"cmsByBeego/utils"
 	"github.com/astaxie/beego"
 	"strings"
 )
