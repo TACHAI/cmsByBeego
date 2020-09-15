@@ -28,8 +28,8 @@ func (c *FormateController)EditDo()  {
 	if 0!=mid{
 		menu:=models.MenuModel{Mid:mid,Format:f}
 		mid,_:=orm.NewOrm().Update(&menu,"format")
-		c.jsonResult("success","ok",mid)
+		c.jsonResult(200,"ok",mid)
 	}
 
-	c.jsonResult("error","",0)
+	c.jsonResult(400,"",0)
 }

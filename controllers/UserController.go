@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"github.com/astaxie/beego"
 	"github.com/astaxie/beego/orm"
-	"hash/adler32"
 )
 
 type UserController struct {
@@ -39,7 +38,7 @@ func (c *UserController)List()  {
 	if err!=nil{
 		size=20
 	}
-	result,count :=models.UserList(size,page)
+	//result,count :=models.UserList(size,page)
 	data,total:=models.UserList(size,page)
 
 
@@ -87,7 +86,7 @@ func (c *UserController)Edit()  {
 	menu :=models.ParentMenuList()
 	menus :=make(map[int]Menuitem)
 	for _,v:=range menu{
-		menu[v.Mid]=Menuitem{v.Name:authmap[v.Mid]}
+		menus[v.Mid]=Menuitem{v.Name,authmap[v.Mid]}
 	}
 	c.Data["Menus"]=menus
 

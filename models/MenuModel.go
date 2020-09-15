@@ -11,8 +11,10 @@ import (
 type MenuModel struct {
 	Mid int `orm:"pk;auto"`
 	Parent int
+	//Name string`orm:"size(45)"`
 	Name string`orm:"size(45)"`
 	Seq int
+	//Format string `orm:"size(2048)";default({})`
 	Format string `orm:"size(2048)";default({})`
 }
 
@@ -65,7 +67,9 @@ func MenuTreeStuct(user UserModel)map[int]MenuTree  {
 
 		for _,v:=range data{
 			if 0==v.Parent{
-				idx:=sort.Search(authArr,v.Mid)
+				idx:=sort.Search(len(authArr), func(i int) bool {
+					return authArr[i]>v.Mid
+				})
 				found:=(idx<len(authArr)&&authArr[idx]==v.Mid)
 				if found{
 					var tree=new(MenuTree)
